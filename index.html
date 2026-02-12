@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>اختبارات إلكترونية رسمية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Tajawal', sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #dbe6f7, #a7c8e9);
+  color: #1c2a39;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+header img {
+  width: 80px;
+  height: 80px;
+}
+
+header h1 {
+  font-size: 28px;
+  color: #0b3d91; /* أزرق رسمي */
+}
+
+.page {
+  display: none;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.page.active {
+  display: block;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #7da2ce;
+  font-size: 16px;
+}
+
+button {
+  background: linear-gradient(to right, #0b3d91, #1cc88a);
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.option {
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #7da2ce;
+  background: #f8faff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option:hover {
+  background: #d0e6ff;
+  border-color: #0b3d91;
+}
+
+.option.selected {
+  background: #0b3d91;
+  color: white;
+  font-weight: bold;
+}
+
+.bar-container {
+  height: 15px;
+  width: 100%;
+  background: #ecf0f1;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+#tpb, #pb {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, #0b3d91, #1cc88a);
+}
+
+.cointat2 {
+  height: 450px;
+  background: linear-gradient(135deg, #6976b4, #a8abd1);
+  border-radius: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.cointat2 h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.cointat2 h4 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.nav-buttons button {
+  flex: 1;
+}
+
+@media (max-width: 700px) {
+  .container { margin: 20px 10px; }
+  .cointat2 { height: auto; padding: 20px; }
+}
+img{
+  border-radius: 50%;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn06OsXRmlO341wTD7HAqcvTHobtDTnh5w0A&s" alt="لوجو الوزارة">
+    <h1>اختبارات الكترونية </h1>
+    <h1>اشراف الأستاذة دعاء عون</h1>
+  </header>
+
+  <div id="startPage" class="page active">
+    <input type="text" id="studentName" placeholder="اسمك" />
+    <select id="studentGrade">
+      <option value="stsec1">أولى ثانوي</option>
+      <option value="prep3">تالتة إعدادي</option>
+      <option value="rdsec3">تالتة ثانوي</option>
+      <option value="first">أولى إعدادي</option>
+    </select>
+    <button onclick="S()">ابدأ الاختبار</button>
+  </div>
+
+  <div id="quizPage" class="page">
+    <div>الاسم: <span id="n">---</span></div>
+    <div>الصف: <span id="g">---</span></div>
+    <div>الوقت: <span id="t">15:00</span></div>
+    <div class="bar-container"><div id="tpb"></div></div>
+    <div id="qc">السؤال 1 من 10</div>
+    <div id="q">...</div>
+    <div class="option" id="o1" onclick="sel(0)"></div>
+    <div class="option" id="o2" onclick="sel(1)"></div>
+    <div class="option" id="o3" onclick="sel(2)"></div>
+    <div class="option" id="o4" onclick="sel(3)"></div>
+    <div class="nav-buttons">
+      <button onclick="prv()">السابق</button>
+      <button onclick="nxt()">التالي</button>
+      <button onclick="end()">إنهاء</button>
+    </div>
+    <div class="bar-container"><div id="pb"></div></div>
+  </div>
+
+  <div class="cointat2">
+    <h1>اختبارات الكترونية للمرحلتين الإعدادية والثانوية</h1>
+    <h4>يجب قراءة هذه التعليمات جيدًا قبل البدء في الامتحان</h4>
+    <ul>
+      <li>يؤدى الامتحان لمرة واحدة فقط</li>
+      <li>مدة الامتحان 20دقيقة</li>
+      <li>يجب مرجعة الأجابات جيدا قبل تسليمها</li>
+      <li>الامتحانات المتاحة الصف الأول الثانوي والصف الثالث الأعدادي</li>
+      <li ></li><h1>مع تحيات الأستاذة دعاء عون </h1></li>
+      
+    </ul>
+  </div>
+
+  <div id="resultPage" class="page">
+    <h3>النتيجة: <span id="fs">0</span> / <span id="tq">10</span></h3>
+    <div id="dr"></div>
+  </div>
+
+</div>
+
+<script src="./dd.js"></script>
+</body>
+</html>
